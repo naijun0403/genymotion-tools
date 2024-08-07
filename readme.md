@@ -12,3 +12,7 @@ Install arm translation with android version 14
 ```sh
 $ python3 genymotion.py -a 14 -n
 ```
+
+## FAQ
+### Failed to push: ./libndk_translation/system/lib/libnb.so
+The problem occurs because libnb.so is a symlink, and the target it points to doesn't actually exist. However, even without it, the problem doesn't exist in the arm translation.
