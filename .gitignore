@@ -1,0 +1,4 @@
+.code/
+test.py
+.venv/
+*/__pycache__
