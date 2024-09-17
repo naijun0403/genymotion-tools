@@ -59,9 +59,9 @@ class Ndk:
         prop.add_property('ro.product.cpu.abilist', 'x86_64,x86,arm64-v8a,armeabi-v7a,armeabi')
         prop.add_property('ro.product.cpu.abilist32', 'x86,armeabi-v7a,armeabi')
         prop.add_property('ro.product.cpu.abilist64', 'x86_64,arm64-v8a')
-        prop.update_property('ro.system.product.cpu.abilist', f'{prop.properties['ro.system.product.cpu.abilist']},arm64-v8a,armeabi-v7a,armeabi')
-        prop.update_property('ro.system.product.cpu.abilist32', f'{prop.properties['ro.system.product.cpu.abilist32']},armeabi-v7a,armeabi')
-        prop.update_property('ro.system.product.cpu.abilist64', f'{prop.properties['ro.system.product.cpu.abilist64']},arm64-v8a')
+        prop.update_property('ro.system.product.cpu.abilist', f"{prop.properties['ro.system.product.cpu.abilist']},arm64-v8a,armeabi-v7a,armeabi")
+        prop.update_property('ro.system.product.cpu.abilist32', f"{prop.properties['ro.system.product.cpu.abilist32']},armeabi-v7a,armeabi")
+        prop.update_property('ro.system.product.cpu.abilist64', f"{prop.properties['ro.system.product.cpu.abilist64']},arm64-v8a")
         prop.update_property('ro.dalvik.vm.native.bridge', 'libndk_translation.so')
         prop.add_property('ro.berberis.version', '0.2.3')
         prop.add_property('ro.dalvik.vm.isa.arm64', 'x86_64')
@@ -81,9 +81,9 @@ class Ndk:
         adb.pull('/system/vendor/build.prop', './libndk_translation/vendor.build.prop', as_root=True)
         
         vendor_prop = PropManager('./libndk_translation/vendor.build.prop')
-        vendor_prop.update_property('ro.vendor.product.cpu.abilist', f'{vendor_prop.properties['ro.vendor.product.cpu.abilist']},arm64-v8a,armeabi-v7a,armeabi')
-        vendor_prop.update_property('ro.vendor.product.cpu.abilist32', f'{vendor_prop.properties['ro.vendor.product.cpu.abilist32']},armeabi-v7a,armeabi')
-        vendor_prop.update_property('ro.vendor.product.cpu.abilist64', f'{vendor_prop.properties['ro.vendor.product.cpu.abilist64']},arm64-v8a')
+        vendor_prop.update_property('ro.vendor.product.cpu.abilist', f"{vendor_prop.properties['ro.vendor.product.cpu.abilist']},arm64-v8a,armeabi-v7a,armeabi")
+        vendor_prop.update_property('ro.vendor.product.cpu.abilist32', f"{vendor_prop.properties['ro.vendor.product.cpu.abilist32']},armeabi-v7a,armeabi")
+        vendor_prop.update_property('ro.vendor.product.cpu.abilist64', f"{vendor_prop.properties['ro.vendor.product.cpu.abilist64']},arm64-v8a")
 
         vendor_prop.save()
 
