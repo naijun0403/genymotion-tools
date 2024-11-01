@@ -19,4 +19,4 @@ def download_file(url, filename=None):
             size = file.write(data)
             progress_bar.update(size)
     
-    print(f"\nFile '{filename}' was successfully installed!")
+    print(f"\n[!] File '{filename}' was successfully installed!")

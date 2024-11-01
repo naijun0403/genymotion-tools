@@ -47,9 +47,9 @@ class Ndk:
 
         adb.root()
 
-        adb.shell('mount -o rw,remount /')
+        adb.shell('mount -o rw,remount /', as_root=True)
 
-        adb.merge_push('./libndk_translation/system', '/system', as_root=True)
+        adb.push('./libndk_translation/system', '/')
         
         print('[*] modify system props')
         
@@ -76,7 +76,7 @@ class Ndk:
 
         prop.save()
 
-        adb.push('./libndk_translation/build.prop', '/system/build.prop', as_root=True)
+        adb.push('./libndk_translation/build.prop', '/system/build.prop')
 
         adb.pull('/system/vendor/build.prop', './libndk_translation/vendor.build.prop', as_root=True)
         
@@ -87,8 +87,8 @@ class Ndk:
 
         vendor_prop.save()
 
-        adb.push('./libndk_translation/vendor.build.prop', '/system/vendor/build.prop', as_root=True)
+        adb.push('./libndk_translation/vendor.build.prop', '/system/vendor/build.prop')
 
-        adb.shell('mount -o ro,remount /')
+        adb.shell('mount -o ro,remount /', as_root=True)
 
         print('[!] Successfully patched for arm translation!, please restart your genymotion!')

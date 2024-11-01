@@ -25,14 +25,14 @@ class PropManager:
         if key in self.properties:
             self.properties[key] = value
         else:
-            print(f'Key "{key}" not found.')
+            print(f'[!] Key "{key}" not found.')
 
     def delete_property(self, key):
         """Delete an existing property."""
         if key in self.properties:
             del self.properties[key]
         else:
-            print(f'Key "{key}" not found.')
+            print(f'[!] Key "{key}" not found.')
 
     def save(self):
         """Save properties back to the build.prop file."""
