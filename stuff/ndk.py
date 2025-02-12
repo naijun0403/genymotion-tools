@@ -36,32 +36,28 @@ class Ndk:
         print('[*] patching files')
 
         adb = ADB()
-
-        connected = adb.is_device_connected()
-
-        if not connected:
+        if not adb.is_device_connected():
             print('[!] Sorry, your emulator is not connected')
             return
-        
+
         print('[*] merge system for arm translation')
-
         adb.root()
-
         adb.shell('mount -o rw,remount /', as_root=True)
-
         adb.push('./libndk_translation/system', '/')
         
         print('[*] modify system props')
-        
         adb.pull('/system/build.prop', './libndk_translation/', as_root=True)
-
+        
         prop = PropManager('./libndk_translation/build.prop')
-        prop.add_property('ro.product.cpu.abilist', 'x86_64,x86,arm64-v8a,armeabi-v7a,armeabi')
-        prop.add_property('ro.product.cpu.abilist32', 'x86,armeabi-v7a,armeabi')
-        prop.add_property('ro.product.cpu.abilist64', 'x86_64,arm64-v8a')
-        prop.update_property('ro.system.product.cpu.abilist', f"{prop.properties['ro.system.product.cpu.abilist']},arm64-v8a,armeabi-v7a,armeabi")
-        prop.update_property('ro.system.product.cpu.abilist32', f"{prop.properties['ro.system.product.cpu.abilist32']},armeabi-v7a,armeabi")
-        prop.update_property('ro.system.product.cpu.abilist64', f"{prop.properties['ro.system.product.cpu.abilist64']},arm64-v8a")
+
+        prop.add_property('ro.product.cpu.abilist', 'arm64-v8a,armeabi-v7a,armeabi,x86_64,x86')
+        prop.add_property('ro.product.cpu.abilist32', 'armeabi-v7a,armeabi,x86')
+        prop.add_property('ro.product.cpu.abilist64', 'arm64-v8a,x86_64')
+        
+        prop.update_property('ro.system.product.cpu.abilist', 'arm64-v8a,armeabi-v7a,armeabi,x86_64,x86')
+        prop.update_property('ro.system.product.cpu.abilist32', 'armeabi-v7a,armeabi,x86')
+        prop.update_property('ro.system.product.cpu.abilist64', 'arm64-v8a,x86_64')
+        
         prop.update_property('ro.dalvik.vm.native.bridge', 'libndk_translation.so')
         prop.add_property('ro.berberis.version', '0.2.3')
         prop.add_property('ro.dalvik.vm.isa.arm64', 'x86_64')
@@ -70,25 +66,21 @@ class Ndk:
         prop.add_property('ro.enable.native.bridge.exec64', '1')
         prop.add_property('ro.ndk_translation.version', '0.2.3')
 
-        prop.add_property('ro.odm.product.cpu.abilist', 'x86_64,x86,arm64-v8a,armeabi-v7a,armeabi')
-        prop.add_property('ro.odm.product.cpu.abilist32', 'x86,armeabi-v7a,armeabi')
-        prop.add_property('ro.odm.product.cpu.abilist64', 'x86_64,arm64-v8a')
-
+        prop.add_property('ro.odm.product.cpu.abilist', 'arm64-v8a,armeabi-v7a,armeabi,x86_64,x86')
+        prop.add_property('ro.odm.product.cpu.abilist32', 'armeabi-v7a,armeabi,x86')
+        prop.add_property('ro.odm.product.cpu.abilist64', 'arm64-v8a,x86_64')
         prop.save()
-
-        adb.push('./libndk_translation/build.prop', '/system/build.prop')
-
-        adb.pull('/system/vendor/build.prop', './libndk_translation/vendor.build.prop', as_root=True)
         
+        adb.push('./libndk_translation/build.prop', '/system/build.prop')
+        
+        adb.pull('/system/vendor/build.prop', './libndk_translation/vendor.build.prop', as_root=True)
         vendor_prop = PropManager('./libndk_translation/vendor.build.prop')
-        vendor_prop.update_property('ro.vendor.product.cpu.abilist', f"{vendor_prop.properties['ro.vendor.product.cpu.abilist']},arm64-v8a,armeabi-v7a,armeabi")
-        vendor_prop.update_property('ro.vendor.product.cpu.abilist32', f"{vendor_prop.properties['ro.vendor.product.cpu.abilist32']},armeabi-v7a,armeabi")
-        vendor_prop.update_property('ro.vendor.product.cpu.abilist64', f"{vendor_prop.properties['ro.vendor.product.cpu.abilist64']},arm64-v8a")
-
+        vendor_prop.update_property('ro.vendor.product.cpu.abilist', 'arm64-v8a,armeabi-v7a,armeabi,x86_64,x86')
+        vendor_prop.update_property('ro.vendor.product.cpu.abilist32', 'armeabi-v7a,armeabi,x86')
+        vendor_prop.update_property('ro.vendor.product.cpu.abilist64', 'arm64-v8a,x86_64')
         vendor_prop.save()
-
+        
         adb.push('./libndk_translation/vendor.build.prop', '/system/vendor/build.prop')
-
         adb.shell('mount -o ro,remount /', as_root=True)
-
+        
         print('[!] Successfully patched for arm translation!, please restart your genymotion!')
