@@ -2,3 +2,5 @@
 test.py
 .venv/
 */__pycache__
+libndk_translation.tar
+libndk_translation/
