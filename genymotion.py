@@ -14,8 +14,8 @@ def main():
         '--android-version',
         dest='android',
         help='Specific android version',
-        default='14',
-        choices=['12', '13', '14']
+        default='15',
+        choices=['12', '13', '14', '15']
     )
 
     parser.add_argument(

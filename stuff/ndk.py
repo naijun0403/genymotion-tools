@@ -9,7 +9,8 @@ class Ndk:
         self.dl_links = {
             '12': ['https://github.com/zhouziyang/libndk_translation/raw/master/libndk_translation-12.0.0.tar', 'e99a8ea60509509cd2353e0ac0b61862'],
             '13': ['https://github.com/zhouziyang/libndk_translation/raw/master/libndk_translation-12.0.0.tar', 'e99a8ea60509509cd2353e0ac0b61862'],
-            '14': ['https://github.com/zhouziyang/libndk_translation/raw/master/libndk_translation-12.0.0.tar', 'e99a8ea60509509cd2353e0ac0b61862']
+            '14': ['https://github.com/zhouziyang/libndk_translation/raw/master/libndk_translation-12.0.0.tar', 'e99a8ea60509509cd2353e0ac0b61862'],
+            '15': ['https://github.com/zhouziyang/libndk_translation/raw/master/libndk_translation-12.0.0.tar', 'e99a8ea60509509cd2353e0ac0b61862']
         }
         self.android_ver = android_ver
 
