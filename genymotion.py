@@ -35,6 +35,9 @@ def main():
             ndk = Ndk(android_ver=args.android)
             ndk.download()
             ndk.patch()
+        else:
+            print(f'[!] Sorry, {arch} architecture is not supported. Only x86 and x86_64 are supported for now.')
+            return
     
     print('[!] All Process is finish!')
 
